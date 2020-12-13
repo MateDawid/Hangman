@@ -1,7 +1,4 @@
-from hangman import get_valid_word
-
-def print_border():
-    print("===============================================================")
+from hangman import print_border, get_valid_word
 
 def choose_language():
     try:
