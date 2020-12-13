@@ -116,6 +116,7 @@ def hangman(language_number):
                 print('Ta litera już została użyta. Spróbuj ponownie.')
         
             else:
+                print_border()
                 print('Niewłaściwy znak. Spróbuj ponownie.')
         if lives == 0:
             print_border()
