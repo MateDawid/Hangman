@@ -1,4 +1,4 @@
-from hangman import print_border, get_valid_word
+from hangman import print_border, hangman
 
 def choose_language():
     try:
@@ -8,11 +8,11 @@ def choose_language():
         if language_version == 1:
             print_border()
             print("You've chosen english language.")
-            get_valid_word(1)
+            hangman(1)
         elif language_version == 2:
             print_border()
             print("Wybrano język polski.")
-            get_valid_word(2) 
+            hangman(2) 
         else:
             print_border()
             print("Wrong number, try again! / Niepoprawny numer, spróbuj ponownie!")

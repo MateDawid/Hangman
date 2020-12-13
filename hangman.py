@@ -18,6 +18,7 @@ def get_valid_word(language_number):
 
 def play_again(language_number):
     if language_number == 1:
+        print_border()
         decision = input("Do you want to play again?(Y/N): ").upper()
         if decision == "Y":
             hangman(1)
@@ -28,6 +29,18 @@ def play_again(language_number):
             print_border()
             print("Invalid character. Try again!")
             play_again(1)
+    if language_number == 2:
+        print_border()
+        decision = input("Chcesz zagrać ponownie?(T/N): ").upper()
+        if decision == "T":
+            hangman(2)
+        elif decision == "N":
+            print_border()
+            print("Dziękuję za grę!")
+        else:
+            print_border()
+            print("Niewłaściwy znak. Spróbuj ponownie!")
+            play_again(2)
 
 def hangman(language_number):
     word = get_valid_word(language_number)
@@ -38,6 +51,7 @@ def hangman(language_number):
     if language_number == 1:
         lives = 8
         alphabet = set(string.ascii_uppercase)
+        
         while len(word_letters) > 0 and lives > 0:
             print_border()
             print(f'Lives left: {lives}')
@@ -76,15 +90,26 @@ def hangman(language_number):
 
     # Polish Version
     elif language_number == 2:
+        lives = 10
         alphabet = set(['L', 'O', 'B', 'C', 'R', 'X', 'F', 'I', 'T', 'J', 'H', 'S', 'G', 'M', 'N', 'E', 'V', 'K', 'W', 'Q', 'P', 'Y', 'D', 'Z', 'A', 'U','Ą','Ć','Ę','Ł','Ń','Ó','Ś','Ź','Ż'])
-        print_border()
         
-        while len(word_letters)>0:
+        while len(word_letters)>0 and lives > 0:
+            print_border()
+            print(f'Pozostałe życia: {lives}')
+            sorted_used_letters = sorted(list(used_letters))
+            print('Użyte litery: ', ', '.join(sorted_used_letters))
+
+            word_list = [letter if letter in used_letters else '-' for letter in word]
+            print('Szukane słowo: ', ' '.join(word_list))
             user_letter = input('Podaj literę: ').upper()
             if user_letter in alphabet - used_letters:
                 used_letters.add(user_letter)
                 if user_letter in word_letters:
                     word_letters.remove(user_letter)
+                else:
+                    lives -= 1
+                    print_border()
+                    print('Tej litery nie ma w szukanym słowie. Spróbuj ponownie!')
         
             elif user_letter in used_letters:
                 print_border()
@@ -92,4 +117,12 @@ def hangman(language_number):
         
             else:
                 print('Niewłaściwy znak. Spróbuj ponownie.')
-   
+        if lives == 0:
+            print_border()
+            print(f"Stracono wszystkie życia! Szukane słowo to {word}!")
+        else:    
+            print_border()
+            print(f"Udało Ci się! Szukane słowo to {word}!")
+        
+        print_border()
+        play_again(2)
